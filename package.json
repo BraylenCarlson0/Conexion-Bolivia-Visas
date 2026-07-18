@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
-    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview"
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "generate:og": "node scripts/generate-og-image.mjs",
+    "sync:reviews": "node --env-file=.env scripts/sync-google-reviews.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

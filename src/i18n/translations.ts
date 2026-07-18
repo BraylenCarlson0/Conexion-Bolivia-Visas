@@ -3,6 +3,9 @@ import { guideContent, guideMeta, guideNav } from "./guide-translations";
 import type { GuideContent } from "./guide-translations";
 import { chinaContactCopy, isChinaLocale } from "./china-translations";
 import type { ChinaContactCopy } from "./china-translations";
+import { heTranslations } from "./he-translations";
+import { reviewsCopy } from "./reviews-translations";
+import type { ReviewsCopy } from "./reviews-translations";
 
 export type Translations = {
   meta: {
@@ -24,6 +27,7 @@ export type Translations = {
     requirements: string[];
     salarTitle: string;
     salarText: string;
+    salarImageAlt: string;
     faqTitle: string;
     faqQuestion: string;
     faqAnswer: string;
@@ -65,12 +69,14 @@ export type Translations = {
     hoursWeekdays: string;
     hoursWeekends: string;
     directionsCta: string;
+    contactImageAlt: string;
   };
   footer: {
     tagline: string;
     rights: string;
   };
   whatsappFloat: string;
+  reviews: ReviewsCopy;
   guide: GuideContent;
   china?: ChinaContactCopy;
 };
@@ -125,6 +131,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "¿Vas al Salar de Uyuni?",
       salarText:
         "Miles de viajeros pasan por Cusco rumbo al Salar de Uyuni y el altiplano boliviano. Te ayudamos a obtener tu visa sin complicaciones para que disfrutes tu viaje.",
+      salarImageAlt: "Mara Isabel en la entrada de la oficina Visas Bolivia",
       faqTitle: "Pregunta frecuente",
       faqQuestion: "¿Puedo gestionar la visa el mismo día?",
       faqAnswer:
@@ -190,6 +197,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "Lunes a viernes: 8:00 AM – 7:00 PM",
       hoursWeekends: "Sábados y domingos: solo emergencias, con cita previa por WhatsApp",
       directionsCta: "Cómo llegar en Google Maps",
+      contactImageAlt: "Vista de la oficina Visas Bolivia desde el exterior en Cusco",
     },
     footer: {
       tagline: "Asesoría inmediata y confiable para tu visa a Bolivia",
@@ -242,6 +250,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "Heading to the Salar de Uyuni?",
       salarText:
         "Thousands of travelers pass through Cusco on their way to the Salar de Uyuni and the Bolivian altiplano. We help you get your visa hassle-free so you can enjoy your trip.",
+      salarImageAlt: "Mara Isabel welcoming travelers at the Visas Bolivia office entrance",
       faqTitle: "Frequently asked",
       faqQuestion: "Can I get my visa the same day?",
       faqAnswer:
@@ -307,6 +316,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "Monday–Friday: 8:00 AM – 7:00 PM",
       hoursWeekends: "Saturday & Sunday: emergencies only, by WhatsApp appointment",
       directionsCta: "Get directions on Google Maps",
+      contactImageAlt: "Looking into the Visas Bolivia office from the hallway in Cusco",
     },
     footer: {
       tagline: "Fast, reliable Bolivia visa assistance from Cusco",
@@ -351,6 +361,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       salarTitle: "要去乌尤尼盐沼吗？",
       salarText: "数千名旅行者途经库斯科前往乌尤尼盐沼。我们帮您轻松获得签证，尽情享受旅程。",
+      salarImageAlt: "Mara Isabel 在 Visas Bolivia 办公室门口",
       faqTitle: "常见问题",
       faqQuestion: "可以当天办理签证吗？",
       faqAnswer:
@@ -415,6 +426,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "周一至周五：上午8:00 – 下午7:00",
       hoursWeekends: "周六和周日：仅限紧急情况，需通过WhatsApp预约",
       directionsCta: "在Google Maps上查看路线",
+      contactImageAlt: "从外部看库斯科 Visas Bolivia 办公室",
     },
     footer: { tagline: "库斯科玻利维亚签证快速可靠咨询", rights: "版权所有" },
     whatsappFloat: "WhatsApp",
@@ -456,6 +468,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       salarTitle: "要去烏尤尼鹽沼嗎？",
       salarText: "數千名旅行者途經庫斯科前往烏尤尼鹽沼。我們幫您輕鬆獲得簽證，盡情享受旅程。",
+      salarImageAlt: "Mara Isabel 在 Visas Bolivia 辦公室門口",
       faqTitle: "常見問題",
       faqQuestion: "可以當天辦理簽證嗎？",
       faqAnswer:
@@ -520,6 +533,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "週一至週五：上午8:00 – 下午7:00",
       hoursWeekends: "週六和週日：僅限緊急情況，需透過WhatsApp預約",
       directionsCta: "在Google Maps上查看路線",
+      contactImageAlt: "從外部看庫斯科 Visas Bolivia 辦公室",
     },
     footer: { tagline: "庫斯科玻利維亞簽證快速可靠諮詢", rights: "版權所有" },
     whatsappFloat: "WhatsApp",
@@ -561,6 +575,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       ],
       salarTitle: "هل أنت متجه إلى سالار دي أيويوني؟",
       salarText: "يمر آلاف المسافرين عبر كوسكو في طريقهم إلى سالار دي أيويوني. نساعدك في الحصول على تأشيرتك بسهولة.",
+      salarImageAlt: "Mara Isabel عند مدخل مكتب Visas Bolivia",
       faqTitle: "سؤال شائع",
       faqQuestion: "هل يمكنني الحصول على التأشيرة في نفس اليوم؟",
       faqAnswer:
@@ -625,6 +640,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "الاثنين–الجمعة: 8:00 ص – 7:00 م",
       hoursWeekends: "السبت والأحد: حالات الطوارئ فقط، بموعد عبر واتساب",
       directionsCta: "الاتجاهات على خرائط جوجل",
+      contactImageAlt: "منظر لمكتب Visas Bolivia من الخارج في كوسكو",
     },
     footer: { tagline: "مساعدة سريعة وموثوقة لتأشيرة بوليفيا من كوسكو", rights: "جميع الحقوق محفوظة" },
     whatsappFloat: "واتساب",
@@ -672,6 +688,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "Vai ao Salar de Uyuni?",
       salarText:
         "Milhares de viajantes passam por Cusco a caminho do Salar de Uyuni. Ajudamos você a obter seu visto sem complicações.",
+      salarImageAlt: "Mara Isabel na entrada do escritório Visas Bolivia",
       faqTitle: "Pergunta frequente",
       faqQuestion: "Posso obter o visto no mesmo dia?",
       faqAnswer:
@@ -737,6 +754,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "Segunda a sexta: 8:00 – 19:00",
       hoursWeekends: "Sábado e domingo: apenas emergências, com agendamento via WhatsApp",
       directionsCta: "Como chegar no Google Maps",
+      contactImageAlt: "Vista do escritório Visas Bolivia do corredor em Cusco",
     },
     footer: { tagline: "Assistência rápida e confiável para visto da Bolívia em Cusco", rights: "Todos os direitos reservados" },
     whatsappFloat: "WhatsApp",
@@ -784,6 +802,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "Едете на Салар-де-Уюни?",
       salarText:
         "Тысячи путешественников проезжают через Куско к Салар-де-Уюни. Мы поможем получить визу без лишних сложностей.",
+      salarImageAlt: "Mara Isabel у входа в офис Visas Bolivia",
       faqTitle: "Частый вопрос",
       faqQuestion: "Можно ли получить визу в тот же день?",
       faqAnswer:
@@ -849,6 +868,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "Пн–Пт: 8:00 – 19:00",
       hoursWeekends: "Сб и Вс: только экстренные случаи, по записи в WhatsApp",
       directionsCta: "Маршрут в Google Maps",
+      contactImageAlt: "Вид на офис Visas Bolivia снаружи в Куско",
     },
     footer: { tagline: "Быстрая и надёжная помощь с визой в Боливию из Куско", rights: "Все права защищены" },
     whatsappFloat: "WhatsApp",
@@ -898,6 +918,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "Menuju Salar de Uyuni?",
       salarText:
         "Ribuan wisatawan melalui Cusco menuju Salar de Uyuni dan dataran tinggi Bolivia. Kami bantu Anda mendapatkan visa tanpa repot agar perjalanan lebih menyenangkan.",
+      salarImageAlt: "Mara Isabel di pintu masuk kantor Visas Bolivia",
       faqTitle: "Pertanyaan umum",
       faqQuestion: "Bisakah visa diproses di hari yang sama?",
       faqAnswer:
@@ -963,6 +984,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "Senin–Jumat: 08.00 – 19.00",
       hoursWeekends: "Sabtu & Minggu: hanya darurat, dengan janji via WhatsApp",
       directionsCta: "Petunjuk arah di Google Maps",
+      contactImageAlt: "Pemandangan kantor Visas Bolivia dari luar di Cusco",
     },
     footer: {
       tagline: "Bantuan visa Bolivia cepat dan terpercaya dari Cusco",
@@ -1015,6 +1037,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "Їдете на Салар-де-Уюні?",
       salarText:
         "Тисячі мандрівників проїжджають через Куско до Салар-де-Уюні та болівійського нагір'я. Ми допоможемо отримати візу без зайвих складнощів.",
+      salarImageAlt: "Mara Isabel біля входу в офіс Visas Bolivia",
       faqTitle: "Поширене запитання",
       faqQuestion: "Чи можна отримати візу в той самий день?",
       faqAnswer:
@@ -1080,6 +1103,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "Пн–Пт: 8:00 – 19:00",
       hoursWeekends: "Сб і Нд: лише екстрені випадки, за записом у WhatsApp",
       directionsCta: "Маршрут у Google Maps",
+      contactImageAlt: "Вигляд офісу Visas Bolivia ззовні в Куско",
     },
     footer: {
       tagline: "Швидка та надійна допомога з візою в Болівію з Куско",
@@ -1132,6 +1156,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       salarTitle: "Idete ka Salar de Uyuni?",
       salarText:
         "Hiljade putnika prolazi kroz Kusko na putu ka Salar de Uyuni i bolivijskom visoravni. Pomažemo vam da dobijete vizu bez komplikacija.",
+      salarImageAlt: "Mara Isabel na ulazu u kancelariju Visas Bolivia",
       faqTitle: "Često pitanje",
       faqQuestion: "Mogu li dobiti vizu istog dana?",
       faqAnswer:
@@ -1197,6 +1222,7 @@ export const translations: Record<Locale, BaseTranslations> = {
       hoursWeekdays: "Ponedeljak–petak: 8:00 – 19:00",
       hoursWeekends: "Subota i nedelja: samo hitni slučajevi, po dogovoru putem WhatsApp-a",
       directionsCta: "Uputstva na Google Maps",
+      contactImageAlt: "Pogled na kancelariju Visas Bolivia spolja u Kusku",
     },
     footer: {
       tagline: "Brza i pouzdana pomoć sa vizom za Boliviju iz Kuska",
@@ -1204,6 +1230,8 @@ export const translations: Record<Locale, BaseTranslations> = {
     },
     whatsappFloat: "WhatsApp",
   },
+
+  he: heTranslations,
 };
 
 export function getTranslations(locale: Locale): Translations {
@@ -1213,6 +1241,7 @@ export function getTranslations(locale: Locale): Translations {
     meta: { ...base.meta, guide: guideMeta[locale] },
     nav: { ...base.nav, guide: guideNav[locale] },
     guide: guideContent[locale],
+    reviews: reviewsCopy[locale],
     ...(isChinaLocale(locale) ? { china: chinaContactCopy[locale] } : {}),
   };
 }

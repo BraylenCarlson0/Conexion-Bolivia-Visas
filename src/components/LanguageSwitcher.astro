@@ -69,6 +69,8 @@ const { locale, page } = Astro.props;
     background: white;
     color: var(--text);
     cursor: pointer;
-    min-width: 10.5rem;
+    min-width: 0;
+    width: min(10.5rem, 28vw);
+    max-width: 100%;
   }
 </style>

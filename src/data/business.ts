@@ -33,4 +33,10 @@ export const business = {
   },
   formAction: "https://api.web3forms.com/submit",
   web3formsAccessKey: "ea8a4d1e-0199-4183-8138-56ed65862a10",
+  ogImage: {
+    path: "/images/og-image.png",
+    width: 1200,
+    height: 630,
+    alt: "Visas Bolivia Conexión Bolivia — Bolivia visa assistance in Cusco, Peru",
+  },
 } as const;

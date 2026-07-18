@@ -3,6 +3,9 @@ import type { Locale, PageKey } from "../i18n/config";
 import { localeList, locales, localePath } from "../i18n/config";
 import { getTranslations } from "../i18n/translations";
 import { business } from "../data/business";
+import reviewsData from "../data/reviews.json";
+import type { GoogleReviewsData } from "../data/reviews.types";
+import { getReviewText } from "../data/reviews.types";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import HeaderSocialIcons from "../components/HeaderSocialIcons.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
@@ -19,6 +22,7 @@ interface Props {
 const { locale, page, faqSchema } = Astro.props;
 const t = getTranslations(locale);
 const meta = t.meta[page === "home" ? "home" : page];
+const reviews = reviewsData as GoogleReviewsData;
 const { dir, hreflang } = locales[locale];
 const canonical = new URL(localePath(locale, page), Astro.site);
 
@@ -28,6 +32,7 @@ const alternateLinks = localeList.map((loc) => ({
 }));
 
 const xDefault = new URL(localePath("es", page), Astro.site).href;
+const ogImage = new URL(business.ogImage.path, Astro.site).href;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -35,6 +40,7 @@ const structuredData = {
   name: business.name,
   description: meta.description,
   url: Astro.site?.href,
+  image: ogImage,
   telephone: business.phone,
   email: business.email,
   address: {
@@ -63,6 +69,33 @@ const structuredData = {
     business.social.tiktok,
     ...(isChinaLocale(locale) ? [business.china.xiaohongshu] : []),
   ],
+  ...(reviews.rating > 0 && reviews.totalCount > 0
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: String(reviews.rating),
+          reviewCount: String(reviews.totalCount),
+          bestRating: "5",
+          worstRating: "1",
+        },
+      }
+    : {}),
+  ...(reviews.reviews.length > 0
+    ? {
+        review: reviews.reviews.slice(0, 5).map((review) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: review.author },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: String(review.rating),
+            bestRating: "5",
+            worstRating: "1",
+          },
+          reviewBody: getReviewText(review, locale),
+          ...(review.publishedAt ? { datePublished: review.publishedAt } : {}),
+        })),
+      }
+    : {}),
 };
 
 const faqStructuredData = faqSchema
@@ -95,7 +128,16 @@ const faqStructuredData = faqSchema
     <meta property="og:description" content={meta.description} />
     <meta property="og:url" content={canonical.href} />
     <meta property="og:locale" content={hreflang} />
+    <meta property="og:site_name" content={business.shortName} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(business.ogImage.width)} />
+    <meta property="og:image:height" content={String(business.ogImage.height)} />
+    <meta property="og:image:alt" content={business.ogImage.alt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={business.ogImage.alt} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -215,9 +257,10 @@ const faqStructuredData = faqSchema
   }
 
   .header-inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    position: relative;
+    gap: 0.75rem 1rem;
     width: 100%;
     max-width: none;
     padding-block: 0.2rem;
@@ -229,9 +272,8 @@ const faqStructuredData = faqSchema
     align-items: center;
     text-decoration: none;
     flex-shrink: 0;
-    position: relative;
-    z-index: 2;
-    margin-left: 2.25rem;
+    justify-self: start;
+    margin-inline-start: clamp(0.25rem, 2vw, 2.25rem);
   }
 
   .logo:hover { text-decoration: none; }
@@ -240,19 +282,18 @@ const faqStructuredData = faqSchema
     display: block;
     height: 72px;
     width: auto;
-    max-width: min(300px, 52vw);
+    max-width: min(300px, 42vw);
     object-fit: contain;
   }
 
   .header-nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 1.5rem;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
     flex-wrap: wrap;
     justify-content: center;
-    z-index: 1;
+    justify-self: center;
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .header-nav a {
@@ -271,10 +312,11 @@ const faqStructuredData = faqSchema
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-left: auto;
     flex-shrink: 0;
-    position: relative;
-    z-index: 2;
+    justify-self: end;
+    grid-column: 3;
+    grid-row: 1;
+    min-width: 0;
   }
 
   .hero {
@@ -416,6 +458,43 @@ const faqStructuredData = faqSchema
     object-position: center 20%;
   }
 
+  .contact-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .contact-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+  }
+
+  .contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .contact-feature-photo {
+    margin: 0;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .contact-feature-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .faq-item + .faq-item { margin-top: 1rem; }
 
   .site-footer {
@@ -490,24 +569,30 @@ const faqStructuredData = faqSchema
 
   @media (max-width: 768px) {
     .split { grid-template-columns: 1fr; }
+    .contact-layout { grid-template-columns: 1fr; }
     .hero { padding: 3.5rem 0 2.5rem; }
     .header-inner {
-      flex-wrap: wrap;
+      grid-template-columns: 1fr auto;
       row-gap: 0.75rem;
     }
     .header-nav {
-      position: static;
-      transform: none;
-      order: 3;
+      grid-column: 1 / -1;
+      grid-row: 2;
       width: 100%;
-      justify-content: center;
       padding-top: 0.15rem;
     }
     .header-actions {
-      margin-left: auto;
+      grid-column: 2;
+      grid-row: 1;
     }
     .logo {
-      margin-left: 0;
+      grid-column: 1;
+      grid-row: 1;
+      margin-inline-start: 0;
+      max-width: 58vw;
+    }
+    .logo-image {
+      max-width: 100%;
     }
   }
 </style>

@@ -1,7 +1,10 @@
 ---
 import I18nLayout from "../../layouts/I18nLayout.astro";
 import PhotoGallery from "../../components/PhotoGallery.astro";
+import GoogleReviews from "../../components/GoogleReviews.astro";
 import ChinaContact from "../../components/ChinaContact.astro";
+import reviewsData from "../../data/reviews.json";
+import type { GoogleReviewsData } from "../../data/reviews.types";
 import { localeList, localePath } from "../../i18n/config";
 import type { Locale } from "../../i18n/config";
 import { isChinaLocale } from "../../i18n/china-translations";
@@ -14,6 +17,7 @@ export function getStaticPaths() {
 
 const locale = Astro.params.lang as Locale;
 const t = getTranslations(locale);
+const reviews = reviewsData as GoogleReviewsData;
 ---
 
 <I18nLayout locale={locale} page="home">
@@ -70,7 +74,7 @@ const t = getTranslations(locale);
   <section class="section section-alt">
     <div class="container split">
       <div class="split-image-wrap split-image-wrap--portrait">
-        <img src="/images/team.png" alt="Conexión Bolivia team at the Cusco office" loading="lazy" width="600" height="750" />
+        <img src="/images/owner-standing.png" alt={t.home.salarImageAlt} loading="lazy" width="768" height="1024" />
       </div>
       <div>
         <h2>{t.home.salarTitle}</h2>
@@ -91,6 +95,8 @@ const t = getTranslations(locale);
     subtitle={t.home.gallerySubtitle}
     gallery={t.home.gallery}
   />
+
+  <GoogleReviews locale={locale} copy={t.reviews} data={reviews} />
 
   <section class="section">
     <div class="container">

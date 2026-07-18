@@ -1,0 +1,137 @@
+import type { Locale } from "./config";
+
+export type ReviewsCopy = {
+  title: string;
+  subtitle: string;
+  verified: string;
+  translatedNote: string;
+  seeAll: string;
+  onGoogle: string;
+  reviewsLabel: string;
+  prev: string;
+  next: string;
+};
+
+export const reviewsCopy: Record<Locale, ReviewsCopy> = {
+  es: {
+    title: "Lo que dicen nuestros clientes",
+    subtitle: "Reseñas verificadas de Google de viajeros que tramitaron su visa con nosotros",
+    verified: "Reseña verificada de Google",
+    translatedNote: "Traducido del original en Google",
+    seeAll: "Ver todas las reseñas en Google",
+    onGoogle: "en Google",
+    reviewsLabel: "reseñas",
+    prev: "Reseña anterior",
+    next: "Siguiente reseña",
+  },
+  en: {
+    title: "What our clients say",
+    subtitle: "Verified Google reviews from travelers who got their Bolivia visa with us",
+    verified: "Verified Google review",
+    translatedNote: "Translated from the original on Google",
+    seeAll: "See all reviews on Google",
+    onGoogle: "on Google",
+    reviewsLabel: "reviews",
+    prev: "Previous review",
+    next: "Next review",
+  },
+  zh: {
+    title: "客户评价",
+    subtitle: "来自在我们这里办理玻利维亚签证的旅行者的 Google verified 评价",
+    verified: "Google 认证评价",
+    translatedNote: "译自 Google 原文",
+    seeAll: "在 Google 上查看全部评价",
+    onGoogle: "Google 评分",
+    reviewsLabel: "条评价",
+    prev: "上一条评价",
+    next: "下一条评价",
+  },
+  "zh-tw": {
+    title: "客戶評價",
+    subtitle: "來自在本處辦理玻利維亞簽證旅客的 Google 認證評價",
+    verified: "Google 認證評價",
+    translatedNote: "譯自 Google 原文",
+    seeAll: "在 Google 上查看全部評價",
+    onGoogle: "Google 評分",
+    reviewsLabel: "則評價",
+    prev: "上一則評價",
+    next: "下一則評價",
+  },
+  ar: {
+    title: "ماذا يقول عملاؤنا",
+    subtitle: "مراجعات Google موثّقة من مسافرين حصلوا على تأشيرة بوليفيا لدينا",
+    verified: "مراجعة Google موثّقة",
+    translatedNote: "مترجم من النص الأصلي على Google",
+    seeAll: "عرض جميع المراجعات على Google",
+    onGoogle: "على Google",
+    reviewsLabel: "مراجعة",
+    prev: "المراجعة السابقة",
+    next: "المراجعة التالية",
+  },
+  he: {
+    title: "מה הלקוחות שלנו אומרים",
+    subtitle: "ביקורות Google מאומתות ממטיילים שקיבלו ויזה לבוליביה אצלנו",
+    verified: "ביקורת Google מאומתת",
+    translatedNote: "תורגם מהמקור ב-Google",
+    seeAll: "לכל הביקורות ב-Google",
+    onGoogle: "ב-Google",
+    reviewsLabel: "ביקורות",
+    prev: "ביקורת קודמת",
+    next: "ביקורת הבאה",
+  },
+  pt: {
+    title: "O que nossos clientes dizem",
+    subtitle: "Avaliações verificadas do Google de viajantes que obtiveram o visto com a gente",
+    verified: "Avaliação verificada do Google",
+    translatedNote: "Traduzido do original no Google",
+    seeAll: "Ver todas as avaliações no Google",
+    onGoogle: "no Google",
+    reviewsLabel: "avaliações",
+    prev: "Avaliação anterior",
+    next: "Próxima avaliação",
+  },
+  ru: {
+    title: "Отзывы наших клиентов",
+    subtitle: "Проверенные отзывы Google от путешественников, оформивших визу у нас",
+    verified: "Проверенный отзыв Google",
+    translatedNote: "Перевод оригинала с Google",
+    seeAll: "Все отзывы на Google",
+    onGoogle: "на Google",
+    reviewsLabel: "отзывов",
+    prev: "Предыдущий отзыв",
+    next: "Следующий отзыв",
+  },
+  id: {
+    title: "Apa kata klien kami",
+    subtitle: "Ulasan Google terverifikasi dari wisatawan yang mengurus visa Bolivia di sini",
+    verified: "Ulasan Google terverifikasi",
+    translatedNote: "Diterjemahkan dari asli di Google",
+    seeAll: "Lihat semua ulasan di Google",
+    onGoogle: "di Google",
+    reviewsLabel: "ulasan",
+    prev: "Ulasan sebelumnya",
+    next: "Ulasan berikutnya",
+  },
+  uk: {
+    title: "Що кажуть наші клієнти",
+    subtitle: "Перевірені відгуки Google від мандрівників, які оформили візу в нас",
+    verified: "Перевірений відгук Google",
+    translatedNote: "Перекладено з оригіналу на Google",
+    seeAll: "Усі відгуки на Google",
+    onGoogle: "на Google",
+    reviewsLabel: "відгуків",
+    prev: "Попередній відгук",
+    next: "Наступний відгук",
+  },
+  sr: {
+    title: "Šta kažu naši klijenti",
+    subtitle: "Verifikovane Google recenzije putnika koji su kod nas dobili vizu",
+    verified: "Verifikovana Google recenzija",
+    translatedNote: "Prevedeno sa originala na Google-u",
+    seeAll: "Pogledaj sve recenzije na Google-u",
+    onGoogle: "na Google-u",
+    reviewsLabel: "recenzija",
+    prev: "Prethodna recenzija",
+    next: "Sledeća recenzija",
+  },
+};

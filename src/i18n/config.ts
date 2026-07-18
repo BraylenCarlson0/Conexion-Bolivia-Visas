@@ -1,4 +1,4 @@
-export type Locale = "es" | "en" | "zh" | "zh-tw" | "ar" | "pt" | "ru" | "id" | "uk" | "sr";
+export type Locale = "es" | "en" | "zh" | "zh-tw" | "ar" | "he" | "pt" | "ru" | "id" | "uk" | "sr";
 
 export type PageKey = "home" | "services" | "contact" | "guide";
 
@@ -46,6 +46,13 @@ export const locales: Record<
     label: "العربية",
     flag: "🇸🇦",
     hreflang: "ar",
+    dir: "rtl",
+    slugs: { services: "services", contact: "contact", guide: "guide" },
+  },
+  he: {
+    label: "עברית",
+    flag: "🇮🇱",
+    hreflang: "he",
     dir: "rtl",
     slugs: { services: "services", contact: "contact", guide: "guide" },
   },

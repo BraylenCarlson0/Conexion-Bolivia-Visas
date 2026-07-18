@@ -160,23 +160,36 @@ const t = getTranslations(locale);
           </div>
         )}
 
-        <div class="split">
-          <div class="panel">
-            <h2>{t.contact.formTitle}</h2>
-            <ContactForm
-              labels={{
-                nameLabel: t.contact.nameLabel,
-                emailLabel: t.contact.emailLabel,
-                messageLabel: t.contact.messageLabel,
-                submitLabel: t.contact.submitLabel,
-                formSending: t.contact.formSending,
-                formSuccess: t.contact.formSuccess,
-                formError: t.contact.formError,
-              }}
-            />
+        <div class="contact-layout">
+          <div class="contact-main">
+            <figure class="contact-feature-photo">
+              <img
+                src="/images/office-welcome.png"
+                alt={t.contact.contactImageAlt}
+                loading="lazy"
+                decoding="async"
+                width="768"
+                height="1024"
+              />
+            </figure>
+
+            <div class="panel">
+              <h2>{t.contact.formTitle}</h2>
+              <ContactForm
+                labels={{
+                  nameLabel: t.contact.nameLabel,
+                  emailLabel: t.contact.emailLabel,
+                  messageLabel: t.contact.messageLabel,
+                  submitLabel: t.contact.submitLabel,
+                  formSending: t.contact.formSending,
+                  formSuccess: t.contact.formSuccess,
+                  formError: t.contact.formError,
+                }}
+              />
+            </div>
           </div>
 
-          <div>
+          <aside class="contact-sidebar">
             <div class="card">
               <h3>{t.contact.locationTitle}</h3>
               <p>{t.contact.locationText}</p>
@@ -184,12 +197,12 @@ const t = getTranslations(locale);
               <p><a href={`tel:${business.phone}`}>{business.phone}</a></p>
               <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
             </div>
-            <div class="card" style="margin-top: 1rem;">
+            <div class="card">
               <h3>{t.contact.hoursTitle}</h3>
               <p>{t.contact.hoursWeekdays}</p>
               <p>{t.contact.hoursWeekends}</p>
             </div>
-            <p style="margin-top: 1rem;">
+            <p>
               <a class="button button-secondary" href={business.mapsUrl} target="_blank" rel="noopener noreferrer">
                 {t.contact.directionsCta}
               </a>
@@ -202,7 +215,7 @@ const t = getTranslations(locale);
               referrerpolicy="no-referrer-when-downgrade"
               title="Conexión Bolivia office location"
             />
-          </div>
+          </aside>
         </div>
       </div>
     </section>
