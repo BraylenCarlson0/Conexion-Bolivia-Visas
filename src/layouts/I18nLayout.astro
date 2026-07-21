@@ -1,6 +1,6 @@
 ---
-import type { Locale, PageKey } from "../i18n/config";
-import { localeList, locales, localePath } from "../i18n/config";
+import type { Locale, PageKey, TravelStory } from "../i18n/config";
+import { localeList, locales, localePath, travelStoryPath } from "../i18n/config";
 import { getTranslations } from "../i18n/translations";
 import { business } from "../data/business";
 import reviewsData from "../data/reviews.json";
@@ -18,21 +18,23 @@ interface Props {
   locale: Locale;
   page: PageKey;
   faqSchema?: { q: string; a: string }[];
+  travelStory?: TravelStory;
 }
 
-const { locale, page, faqSchema } = Astro.props;
+const { locale, page, faqSchema, travelStory = "index" } = Astro.props;
 const t = getTranslations(locale);
 const meta = t.meta[page === "home" ? "home" : page];
 const reviews = reviewsData as GoogleReviewsData;
 const { dir, hreflang } = locales[locale];
-const canonical = new URL(localePath(locale, page), Astro.site);
+const pagePath = page === "tours" ? travelStoryPath(locale, travelStory) : localePath(locale, page);
+const canonical = new URL(pagePath, Astro.site);
 
 const alternateLinks = localeList.map((loc) => ({
   hreflang: locales[loc].hreflang,
-  href: new URL(localePath(loc, page), Astro.site).href,
+  href: new URL(page === "tours" ? travelStoryPath(loc, travelStory) : localePath(loc, page), Astro.site).href,
 }));
 
-const xDefault = new URL(localePath("es", page), Astro.site).href;
+const xDefault = new URL(page === "tours" ? travelStoryPath("es", travelStory) : localePath("es", page), Astro.site).href;
 const ogImage = new URL(business.ogImage.path, Astro.site).href;
 
 const structuredData = {
@@ -165,6 +167,7 @@ const faqStructuredData = faqSchema
           <a href={localePath(locale)} aria-current={page === "home" ? "page" : undefined}>{t.nav.home}</a>
           <a href={localePath(locale, "services")} aria-current={page === "services" ? "page" : undefined}>{t.nav.services}</a>
           <a href={localePath(locale, "guide")} aria-current={page === "guide" ? "page" : undefined}>{t.nav.guide}</a>
+          <a href={localePath(locale, "tours")} aria-current={page === "tours" ? "page" : undefined}>{t.nav.tours}</a>
           <a href={localePath(locale, "contact")} aria-current={page === "contact" ? "page" : undefined}>{t.nav.contact}</a>
         </nav>
         <div class="header-actions">
@@ -172,7 +175,7 @@ const faqStructuredData = faqSchema
             <HeaderSocialIcons locale={locale} />
           </div>
           <div class="header-actions__lang">
-            <LanguageSwitcher locale={locale} page={page} />
+            <LanguageSwitcher locale={locale} page={page} travelStory={page === "tours" ? travelStory : undefined} />
           </div>
         </div>
       </div>
@@ -519,6 +522,96 @@ const faqStructuredData = faqSchema
   }
 
   .faq-item + .faq-item { margin-top: 1rem; }
+
+  .travel-list {
+    margin: 1.25rem 0 0;
+    padding-left: 1.25rem;
+    line-height: 1.7;
+  }
+
+  .travel-list li + li {
+    margin-top: 0.65rem;
+  }
+
+  .travel-list--contacts li {
+    list-style: none;
+    margin-left: -1.25rem;
+  }
+
+  .blog-post {
+    background: var(--bg);
+    padding: 3rem 0 4rem;
+  }
+
+  .blog-post__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  .blog-post__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .blog-post__header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.35rem);
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-post__intro {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .blog-post__figure {
+    margin: 2rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .blog-post__figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .blog-post__section {
+    margin-top: 2.5rem;
+  }
+
+  .blog-post__section h2 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+
+  .blog-post__section p {
+    line-height: 1.8;
+    margin: 0 0 1rem;
+  }
+
+  .blog-post__section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .blog-post__closing {
+    margin-top: 2.5rem;
+  }
+
+  .blog-post__question {
+    font-size: 1.05rem;
+    margin-top: 1.25rem !important;
+  }
+
+  .blog-post__note {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 1rem !important;
+  }
 
   .site-footer {
     background: var(--brand-dark);

@@ -1,6 +1,8 @@
 export type Locale = "es" | "en" | "zh" | "zh-tw" | "ar" | "he" | "pt" | "ru" | "id" | "uk" | "sr";
 
-export type PageKey = "home" | "services" | "contact" | "guide";
+export type PageKey = "home" | "services" | "contact" | "guide" | "tours";
+
+export type TravelStory = "index" | "tips" | "discover";
 
 export const defaultLocale: Locale = "es";
 
@@ -11,7 +13,7 @@ export const locales: Record<
     flag: string;
     hreflang: string;
     dir: "ltr" | "rtl";
-    slugs: Record<Exclude<PageKey, "home">, string>;
+    slugs: Record<Exclude<PageKey, "home">, string> & { discover: string };
   }
 > = {
   es: {
@@ -19,77 +21,77 @@ export const locales: Record<
     flag: "🇵🇪",
     hreflang: "es",
     dir: "ltr",
-    slugs: { services: "servicios", contact: "contacto", guide: "guia" },
+    slugs: { services: "servicios", contact: "contacto", guide: "guia", tours: "viajes", discover: "descubre-bolivia" },
   },
   en: {
     label: "English",
     flag: "🇺🇸",
     hreflang: "en",
     dir: "ltr",
-    slugs: { services: "services", contact: "contact", guide: "guide" },
+    slugs: { services: "services", contact: "contact", guide: "guide", tours: "travel", discover: "discover-bolivia" },
   },
   zh: {
     label: "中文",
     flag: "🇨🇳",
     hreflang: "zh-CN",
     dir: "ltr",
-    slugs: { services: "services", contact: "contact", guide: "guide" },
+    slugs: { services: "services", contact: "contact", guide: "guide", tours: "travel", discover: "discover-bolivia" },
   },
   "zh-tw": {
     label: "繁體中文",
     flag: "🇹🇼",
     hreflang: "zh-TW",
     dir: "ltr",
-    slugs: { services: "services", contact: "contact", guide: "guide" },
+    slugs: { services: "services", contact: "contact", guide: "guide", tours: "travel", discover: "discover-bolivia" },
   },
   ar: {
     label: "العربية",
     flag: "🇸🇦",
     hreflang: "ar",
     dir: "rtl",
-    slugs: { services: "services", contact: "contact", guide: "guide" },
+    slugs: { services: "services", contact: "contact", guide: "guide", tours: "travel", discover: "discover-bolivia" },
   },
   he: {
     label: "עברית",
     flag: "🇮🇱",
     hreflang: "he",
     dir: "rtl",
-    slugs: { services: "services", contact: "contact", guide: "guide" },
+    slugs: { services: "services", contact: "contact", guide: "guide", tours: "travel", discover: "discover-bolivia" },
   },
   pt: {
     label: "Português",
     flag: "🇧🇷",
     hreflang: "pt-BR",
     dir: "ltr",
-    slugs: { services: "servicos", contact: "contato", guide: "guia" },
+    slugs: { services: "servicos", contact: "contato", guide: "guia", tours: "viagens", discover: "descubra-bolivia" },
   },
   ru: {
     label: "Русский",
     flag: "🇷🇺",
     hreflang: "ru",
     dir: "ltr",
-    slugs: { services: "uslugi", contact: "kontakt", guide: "gid" },
+    slugs: { services: "uslugi", contact: "kontakt", guide: "gid", tours: "puteshestviya", discover: "discover-bolivia" },
   },
   id: {
     label: "Bahasa Indonesia",
     flag: "🇮🇩",
     hreflang: "id",
     dir: "ltr",
-    slugs: { services: "layanan", contact: "kontak", guide: "panduan" },
+    slugs: { services: "layanan", contact: "kontak", guide: "panduan", tours: "perjalanan", discover: "discover-bolivia" },
   },
   uk: {
     label: "Українська",
     flag: "🇺🇦",
     hreflang: "uk",
     dir: "ltr",
-    slugs: { services: "posluhy", contact: "kontakt", guide: "posibnyk" },
+    slugs: { services: "posluhy", contact: "kontakt", guide: "posibnyk", tours: "podorozhi", discover: "discover-bolivia" },
   },
   sr: {
     label: "Srpski",
     flag: "🇷🇸",
     hreflang: "sr",
     dir: "ltr",
-    slugs: { services: "usluge", contact: "kontakt", guide: "vodic" },
+    slugs: { services: "usluge", contact: "kontakt", guide: "vodic", tours: "putovanja", discover: "discover-bolivia" },
   },
 };
 
@@ -98,6 +100,12 @@ export const localeList = Object.keys(locales) as Locale[];
 export function localePath(locale: Locale, page: PageKey = "home"): string {
   if (page === "home") return `/${locale}/`;
   return `/${locale}/${locales[locale].slugs[page]}/`;
+}
+
+export function travelStoryPath(locale: Locale, story: TravelStory = "index"): string {
+  if (story === "discover") return `/${locale}/${locales[locale].slugs.discover}/`;
+  if (story === "tips") return `/${locale}/${locales[locale].slugs.tours}/#tips`;
+  return `/${locale}/${locales[locale].slugs.tours}/`;
 }
 
 export function getLocaleFromParam(param: string): Locale | undefined {

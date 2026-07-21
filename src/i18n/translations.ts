@@ -1,6 +1,10 @@
 import type { Locale } from "./config";
 import { guideContent, guideMeta, guideNav } from "./guide-translations";
 import type { GuideContent } from "./guide-translations";
+import { toursContent, toursMeta, toursNav, travelTipsTab, travelBackLabel, travelReadTime } from "./tours-translations";
+import type { ToursContent } from "./tours-translations";
+import { discoverContent, discoverNav } from "./discover-translations";
+import type { DiscoverContent } from "./discover-translations";
 import { chinaContactCopy, isChinaLocale } from "./china-translations";
 import type { ChinaContactCopy } from "./china-translations";
 import { heTranslations } from "./he-translations";
@@ -13,8 +17,17 @@ export type Translations = {
     services: { title: string; description: string };
     contact: { title: string; description: string };
     guide: { title: string; description: string };
+    tours: { title: string; description: string };
   };
-  nav: { home: string; services: string; contact: string; guide: string };
+  nav: {
+    home: string;
+    services: string;
+    contact: string;
+    guide: string;
+    tours: string;
+    travelTipsTab: string;
+    travelDiscoverTab: string;
+  };
   home: {
     eyebrow: string;
     title: string;
@@ -78,12 +91,15 @@ export type Translations = {
   whatsappFloat: string;
   reviews: ReviewsCopy;
   guide: GuideContent;
+  tours: ToursContent;
+  discover: DiscoverContent;
+  travelHub: { backLabel: string; readTime: { tips: string; discover: string } };
   china?: ChinaContactCopy;
 };
 
-type BaseTranslations = Omit<Translations, "guide"> & {
-  meta: Omit<Translations["meta"], "guide">;
-  nav: Omit<Translations["nav"], "guide">;
+type BaseTranslations = Omit<Translations, "guide" | "tours" | "discover"> & {
+  meta: Omit<Translations["meta"], "guide" | "tours">;
+  nav: Omit<Translations["nav"], "guide" | "travelTipsTab" | "travelDiscoverTab">;
 };
 
 export const translations: Record<Locale, BaseTranslations> = {
@@ -1238,9 +1254,18 @@ export function getTranslations(locale: Locale): Translations {
   const base = translations[locale];
   return {
     ...base,
-    meta: { ...base.meta, guide: guideMeta[locale] },
-    nav: { ...base.nav, guide: guideNav[locale] },
+    meta: { ...base.meta, guide: guideMeta[locale], tours: toursMeta[locale] },
+    nav: {
+      ...base.nav,
+      guide: guideNav[locale],
+      tours: toursNav[locale],
+      travelTipsTab: travelTipsTab[locale],
+      travelDiscoverTab: discoverNav[locale],
+    },
     guide: guideContent[locale],
+    tours: toursContent[locale],
+    discover: discoverContent[locale],
+    travelHub: { backLabel: travelBackLabel[locale], readTime: travelReadTime[locale] },
     reviews: reviewsCopy[locale],
     ...(isChinaLocale(locale) ? { china: chinaContactCopy[locale] } : {}),
   };

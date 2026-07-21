@@ -3,27 +3,39 @@ import I18nLayout from "../../layouts/I18nLayout.astro";
 import ContactForm from "../../components/ContactForm.astro";
 import ChinaContact from "../../components/ChinaContact.astro";
 import ContactPrimaryButton from "../../components/ContactPrimaryButton.astro";
+import TravelHub from "../../components/TravelHub.astro";
 import { localeList, locales, localePath } from "../../i18n/config";
-import type { Locale } from "../../i18n/config";
+import type { Locale, TravelStory } from "../../i18n/config";
 import { isChinaLocale } from "../../i18n/china-translations";
 import { getTranslations } from "../../i18n/translations";
 import { business } from "../../data/business";
 
 export function getStaticPaths() {
-  const paths: { params: { lang: string; page: string }; props: { pageType: "services" | "contact" | "guide" } }[] = [];
+  const paths: {
+    params: { lang: string; page: string };
+    props: { pageType: "services" | "contact" | "guide" | "tours"; initialStory: TravelStory };
+  }[] = [];
 
   for (const lang of localeList) {
     paths.push({
       params: { lang, page: locales[lang].slugs.services },
-      props: { pageType: "services" },
+      props: { pageType: "services", initialStory: "tips" },
     });
     paths.push({
       params: { lang, page: locales[lang].slugs.guide },
-      props: { pageType: "guide" },
+      props: { pageType: "guide", initialStory: "tips" },
+    });
+    paths.push({
+      params: { lang, page: locales[lang].slugs.tours },
+      props: { pageType: "tours", initialStory: "index" },
+    });
+    paths.push({
+      params: { lang, page: locales[lang].slugs.discover },
+      props: { pageType: "tours", initialStory: "discover" },
     });
     paths.push({
       params: { lang, page: locales[lang].slugs.contact },
-      props: { pageType: "contact" },
+      props: { pageType: "contact", initialStory: "tips" },
     });
   }
 
@@ -31,8 +43,9 @@ export function getStaticPaths() {
 }
 
 const locale = Astro.params.lang as Locale;
-const { pageType } = Astro.props;
+const { pageType, initialStory } = Astro.props;
 const t = getTranslations(locale);
+const travelStory: TravelStory = pageType === "tours" ? initialStory : "index";
 ---
 
 {pageType === "services" ? (
@@ -135,6 +148,17 @@ const t = getTranslations(locale);
         </div>
       </div>
     </section>
+  </I18nLayout>
+) : pageType === "tours" ? (
+  <I18nLayout locale={locale} page="tours" travelStory={travelStory}>
+    <TravelHub
+      tips={t.tours}
+      discover={t.discover}
+      backLabel={t.travelHub.backLabel}
+      readTime={t.travelHub.readTime}
+      indexPath={localePath(locale, "tours")}
+      initialStory={initialStory}
+    />
   </I18nLayout>
 ) : (
   <I18nLayout locale={locale} page="contact">

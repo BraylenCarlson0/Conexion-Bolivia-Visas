@@ -1,14 +1,20 @@
 ---
-import type { Locale, PageKey } from "../i18n/config";
-import { localeList, localePath } from "../i18n/config";
+import type { Locale, PageKey, TravelStory } from "../i18n/config";
+import { localeList, localePath, travelStoryPath } from "../i18n/config";
 import { locales } from "../i18n/config";
 
 interface Props {
   locale: Locale;
   page: PageKey;
+  travelStory?: TravelStory;
 }
 
-const { locale, page } = Astro.props;
+const { locale, page, travelStory } = Astro.props;
+
+function pathForLocale(loc: Locale): string {
+  if (page === "tours" && travelStory) return travelStoryPath(loc, travelStory);
+  return localePath(loc, page);
+}
 ---
 
 <div class="lang-switcher">
@@ -23,7 +29,7 @@ const { locale, page } = Astro.props;
     onchange="if(this.value) window.location.assign(this.value)"
   >
     {localeList.map((loc) => (
-      <option value={localePath(loc, page)} selected={loc === locale}>
+      <option value={pathForLocale(loc)} selected={loc === locale}>
         {locales[loc].flag} {locales[loc].label}
       </option>
     ))}
