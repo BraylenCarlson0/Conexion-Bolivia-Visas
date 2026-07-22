@@ -2,7 +2,7 @@
 
 Sitio web estático para asesoría de visas a Bolivia desde Cusco. Construido con [Astro](https://astro.build) y desplegado en [Vercel](https://vercel.com).
 
-**Producción:** https://conexion-bolivia-visas.vercel.app
+**Producción:** https://visasboliviaconexion.com
 
 ## Idiomas
 

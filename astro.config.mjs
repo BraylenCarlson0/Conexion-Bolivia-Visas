@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://conexion-bolivia-visas.vercel.app",
+  site: "https://visasboliviaconexion.com",
   base: "/",
   output: "static",
   i18n: {
