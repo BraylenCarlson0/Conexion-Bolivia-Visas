@@ -1,0 +1,126 @@
+---
+import type { ToursContent } from "../i18n/tours-translations";
+import type { DiscoverContent } from "../i18n/discover-translations";
+import { tipsCardImage } from "../i18n/tours-translations";
+import { travelStoryPath } from "../i18n/config";
+import type { Locale } from "../i18n/config";
+
+interface Props {
+  locale: Locale;
+  tips: ToursContent;
+  discover: DiscoverContent;
+  readTime: { tips: string; discover: string };
+}
+
+const { locale, tips, discover, readTime } = Astro.props;
+const tipsPath = travelStoryPath(locale, "tips");
+const discoverPath = travelStoryPath(locale, "discover");
+---
+
+<div class="travel-posts">
+  <a class="travel-post-card" href={tipsPath}>
+    <div class="travel-post-card__image-wrap">
+      <img
+        src={tipsCardImage.src}
+        alt={tipsCardImage.alt}
+        loading="lazy"
+        decoding="async"
+        width="1200"
+        height="720"
+      />
+    </div>
+    <div class="travel-post-card__body">
+      <h2 class="travel-post-card__title">{tips.title}</h2>
+      <p class="travel-post-card__excerpt">{tips.intro}</p>
+      <p class="travel-post-card__meta">{readTime.tips}</p>
+    </div>
+  </a>
+
+  <a class="travel-post-card" href={discoverPath}>
+    <div class="travel-post-card__image-wrap">
+      <img
+        src={discover.heroImage.src}
+        alt={discover.heroImage.alt}
+        loading="lazy"
+        decoding="async"
+        width="1400"
+        height="605"
+      />
+    </div>
+    <div class="travel-post-card__body">
+      <h2 class="travel-post-card__title">{discover.title}</h2>
+      <p class="travel-post-card__excerpt">{discover.intro}</p>
+      <p class="travel-post-card__meta">{readTime.discover}</p>
+    </div>
+  </a>
+</div>
+
+<script define:vars={{ tipsPath, discoverPath }}>
+  if (location.hash === "#tips") location.replace(tipsPath);
+  if (location.hash === "#discover") location.replace(discoverPath);
+</script>
+
+<style>
+  .travel-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3.5rem;
+  }
+
+  .travel-post-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease;
+  }
+
+  .travel-post-card:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  .travel-post-card__image-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 5 / 3;
+    background: var(--brand-pale);
+  }
+
+  .travel-post-card__image-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .travel-post-card__body {
+    padding-top: 1rem;
+  }
+
+  .travel-post-card__title {
+    font-size: 1.15rem;
+    line-height: 1.35;
+    margin: 0 0 0.75rem;
+  }
+
+  .travel-post-card__excerpt {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .travel-post-card__meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0;
+  }
+</style>

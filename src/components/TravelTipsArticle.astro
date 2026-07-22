@@ -1,0 +1,86 @@
+---
+import type { ToursContent } from "../i18n/tours-translations";
+
+interface Props {
+  tips: ToursContent;
+  backLabel: string;
+  backPath: string;
+}
+
+const { tips, backLabel, backPath } = Astro.props;
+---
+
+<div class="travel-article-nav">
+  <a class="travel-article-nav__back" href={backPath}>{backLabel}</a>
+</div>
+<article class="blog-post blog-post--embedded">
+  <div class="blog-post__inner">
+    <header class="blog-post__header">
+      <h1>{tips.title}</h1>
+      <p class="blog-post__intro">{tips.intro}</p>
+    </header>
+
+    <section class="blog-post__section">
+      <h2>{tips.recommendationsTitle}</h2>
+      <ul class="travel-list">
+        {tips.recommendations.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="blog-post__section">
+      <h2>{tips.prohibitedTitle}</h2>
+      <p>{tips.prohibitedIntro}</p>
+      <ul class="travel-list">
+        {tips.prohibited.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="blog-post__section">
+      <h2>{tips.visaTitle}</h2>
+      <p>{tips.visaIntro}</p>
+      <ul class="travel-list">
+        {tips.visaGroups.map((group) => (
+          <li><strong>{group.label}</strong> {group.text}</li>
+        ))}
+      </ul>
+      <p class="blog-post__note">{tips.visaNote}</p>
+    </section>
+
+    <section class="blog-post__section">
+      <h2>{tips.emergencyTitle}</h2>
+      <p>{tips.emergencyIntro}</p>
+      <ul class="travel-list travel-list--contacts">
+        {tips.emergency.map((contact) => (
+          <li><strong>{contact.label}:</strong> <a href={`tel:${contact.number}`}>{contact.number}</a></li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</article>
+
+<style>
+  .travel-article-nav {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.25rem 1.25rem 0;
+  }
+
+  .travel-article-nav__back {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--brand);
+    text-decoration: none;
+  }
+
+  .travel-article-nav__back:hover {
+    text-decoration: underline;
+  }
+
+  .blog-post--embedded {
+    padding: 0.5rem 0 3.5rem;
+  }
+</style>

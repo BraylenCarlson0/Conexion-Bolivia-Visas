@@ -2,17 +2,24 @@
 import type { Locale, PageKey, TravelStory } from "../i18n/config";
 import { localeList, localePath, travelStoryPath } from "../i18n/config";
 import { locales } from "../i18n/config";
+import { nationalityPath } from "../data/nationalities";
+import type { NationalityId } from "../data/nationalities";
+
+type LayoutPage = PageKey | "nationality";
 
 interface Props {
   locale: Locale;
-  page: PageKey;
+  page: LayoutPage;
   travelStory?: TravelStory;
+  nationalityId?: NationalityId;
 }
 
-const { locale, page, travelStory } = Astro.props;
+const { locale, page, travelStory, nationalityId } = Astro.props;
 
 function pathForLocale(loc: Locale): string {
+  if (page === "nationality" && nationalityId) return nationalityPath(loc, nationalityId);
   if (page === "tours" && travelStory) return travelStoryPath(loc, travelStory);
+  if (page === "nationality") return localePath(loc, "guide");
   return localePath(loc, page);
 }
 ---

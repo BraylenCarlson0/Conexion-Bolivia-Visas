@@ -43,6 +43,7 @@ export const toursNav: Record<Locale, string> = {
   id: "Perjalanan",
   uk: "Подорожі",
   sr: "Putovanja",
+  hi: "यात्रा",
 };
 
 export const travelReadTime: Record<Locale, { tips: string; discover: string }> = {
@@ -57,6 +58,7 @@ export const travelReadTime: Record<Locale, { tips: string; discover: string }> 
   id: { tips: "1 menit baca", discover: "3 menit baca" },
   uk: { tips: "1 хв читання", discover: "3 хв читання" },
   sr: { tips: "1 min čitanja", discover: "3 min čitanja" },
+  hi: { tips: "1 मिनट पढ़ें", discover: "3 मिनट पढ़ें" },
 };
 
 export const travelBackLabel: Record<Locale, string> = {
@@ -71,6 +73,7 @@ export const travelBackLabel: Record<Locale, string> = {
   id: "← Kembali ke Perjalanan",
   uk: "← Назад до подорожей",
   sr: "← Nazad na putovanja",
+  hi: "← यात्रा पर वापस",
 };
 
 export const tipsCardImage = {
@@ -90,6 +93,7 @@ export const travelTipsTab: Record<Locale, string> = {
   id: "Tips perjalanan",
   uk: "Поради мандрівникам",
   sr: "Saveti za put",
+  hi: "यात्रा सुझाव",
 };
 
 export const toursMeta: Record<Locale, { title: string; description: string }> = {
@@ -139,6 +143,63 @@ export const toursMeta: Record<Locale, { title: string; description: string }> =
   sr: {
     title: "Saveti za putovanje u Boliviju | Conexión Bolivia",
     description: "Preporuke, ograničenja, informacije o vizi i hitni kontakti za sigurnu i prijatnu posetu Boliviji.",
+  },
+  hi: {
+    title: "बोलीविया यात्रा सुझाव | Conexión Bolivia",
+    description: "बोलीविया की यात्रा के लिए सुझाव, प्रतिबंध, वीज़ा जानकारी और आपातकालीन संपर्क।",
+  },
+};
+
+export const tipsMeta: Record<Locale, { title: string; description: string }> = {
+  es: {
+    title: "Consejos de viaje a Bolivia 2026 | Visas, emergencias y más – Conexión Bolivia",
+    description:
+      "Recomendaciones, restricciones, requisitos de visa por nacionalidad y contactos de emergencia para viajar seguro a Bolivia.",
+  },
+  en: {
+    title: "Bolivia Travel Tips 2026 | Visas, emergencies & more – Conexión Bolivia",
+    description:
+      "Travel recommendations, restrictions, visa requirements by nationality, and emergency contacts for a safe Bolivia trip.",
+  },
+  zh: {
+    title: "玻利维亚旅行建议 2026 | 签证与紧急联系 – Conexión Bolivia",
+    description: "玻利维亚旅行建议、限制规定、签证信息和紧急联系电话。",
+  },
+  "zh-tw": {
+    title: "玻利維亞旅行建議 2026 | 簽證與緊急聯絡 – Conexión Bolivia",
+    description: "玻利維亞旅行建議、限制規定、簽證資訊和緊急聯絡電話。",
+  },
+  ar: {
+    title: "نصائح السفر إلى بوليفيا 2026 | التأشيرات والطوارئ – Conexión Bolivia",
+    description: "توصيات وقيود ومعلومات التأشيرة وأرقام الطوارئ لزيارة آمنة لبوليفيا.",
+  },
+  he: {
+    title: "טיפים לטיול בבולивיה 2026 | ויזות וחירום – Conexión Bolivia",
+    description: "המלצות, הגבלות, מידע על ויזה ומספרי חירום לביקור בטוח בבוליביה.",
+  },
+  pt: {
+    title: "Dicas de viagem à Bolívia 2026 | Vistos e emergências – Conexión Bolivia",
+    description: "Recomendações, restrições, informações sobre visto e contatos de emergência para visita segura à Bolívia.",
+  },
+  ru: {
+    title: "Советы для поездки в Боливию 2026 | Визы и экстренные контакты – Conexión Bolivia",
+    description: "Рекомендации, ограничения, информация о визе и экстренные контакты.",
+  },
+  id: {
+    title: "Tips Perjalanan ke Bolivia 2026 | Visa & darurat – Conexión Bolivia",
+    description: "Rekomendasi, larangan, informasi visa, dan kontak darurat untuk kunjungan aman ke Bolivia.",
+  },
+  uk: {
+    title: "Поради для подорожі до Болівії 2026 | Візи та екстрені контакти – Conexión Bolivia",
+    description: "Рекомендації, обмеження, інформація про візу та екстрені контакти.",
+  },
+  sr: {
+    title: "Saveti za putovanje u Boliviju 2026 | Vize i hitni kontakti – Conexión Bolivia",
+    description: "Preporuke, ograničenja, informacije o vizi i hitni kontakti za sigurnu posetu Boliviji.",
+  },
+  hi: {
+    title: "बोलीविया यात्रा सुझाव 2026 | वीज़ा और आपातकाल – Conexión Bolivia",
+    description: "बोलीविया यात्रा के लिए सुझाव, प्रतिबंध, वीज़ा जानकारी और आपातकालीन संपर्क।",
   },
 };
 
@@ -541,6 +602,40 @@ export const toursContent: Record<Locale, ToursContent> = {
     visaNote: '(Supreme Decree N° 1923, March 13, 2014 – Regulations of the "Migration Law")',
     emergencyTitle: "📞 Hitni kontakti u Boliviji",
     emergencyIntro: "Držite ove korisne brojeve pri ruci tokom putovanja:",
+    emergency: emergencyContactsEn,
+  },
+
+  hi: {
+    title: "🗺️ बोलीविया यात्रा सुझाव",
+    intro:
+      "बोलीविया की यात्रा एक अनूठा अनुभव है — शानदार परिदृश्य, जीवंत संस्कृति और समृद्ध जैव विविधता। सुरक्षित और सुखद यात्रा के लिए यहाँ सुझाव, प्रतिबंध, वीज़ा जानकारी और महत्वपूर्ण संपर्क हैं।",
+    recommendationsTitle: "✅ यात्रियों के लिए सुझाव",
+    recommendations: [
+      "हमेशा कानूनी रूप से पंजीकृत एजेंसियों (SIRETUR – BOLIVIA) के साथ बुक करें।",
+      "यात्रा के दौरान कम से कम कचरा पैदा करने का प्रयास करें।",
+      "पर्यावरण संरक्षण के उपायों का सम्मान करें।",
+      "उष्णकटिबंधीय क्षेत्रों में पीले बुखार का टीकाकरण प्रमाणपत्र रखें।",
+      "संरक्षित क्षेत्रों में पर्यटन केंद्रों से मार्गदर्शन लें।",
+      "राष्ट्रीय मुद्रा में नकदी रखें।",
+    ],
+    prohibitedTitle: "🚫 क्या प्रतिबंधित है",
+    prohibitedIntro: "पर्यावरण और स्थानीय संस्कृति की रक्षा के लिए:",
+    prohibited: [
+      "जैव विविधता को नुकसान न पहुँचाएं।",
+      "जीवन को खतरे में डालने वाली वस्तुओं का उपयोग न करें।",
+      "ड्रग्स का अधिग्रहण सख्त वर्जित है।",
+      "वन्यजीव, पौधे या सांस्कृतिक विरासत न निकालें।",
+    ],
+    visaTitle: "🌍 वीज़ा आवश्यकताएं",
+    visaIntro: "आपके देश के अनुसार, बोलीविया में प्रवेश की शर्तें भिन्न होती हैं:",
+    visaGroups: [
+      { label: "समूह I:", text: "वीज़ा की आवश्यकता नहीं, केवल वैध पहचान पत्र या पासपोर्ट।" },
+      { label: "समूह II:", text: "पर्यटक या आगंतुक वीज़ा आवश्यक।" },
+      { label: "समूह III:", text: "वीज़ा आवश्यक, प्रवासन महानिदेशालय द्वारा पूर्व जाँच के अधीन।" },
+    ],
+    visaNote: '(Supreme Decree N° 1923, March 13, 2014 – Regulations of the "Migration Law")',
+    emergencyTitle: "📞 बोलीविया में आपातकालीन संपर्क",
+    emergencyIntro: "यात्रा के दौरान ये उपयोगी नंबर संभाल कर रखें:",
     emergency: emergencyContactsEn,
   },
 };

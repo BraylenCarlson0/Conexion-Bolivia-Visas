@@ -5,6 +5,7 @@ import GoogleReviews from "../../components/GoogleReviews.astro";
 import ContactPrimaryButton from "../../components/ContactPrimaryButton.astro";
 import reviewsData from "../../data/reviews.json";
 import type { GoogleReviewsData } from "../../data/reviews.types";
+import NationalityLinks from "../../components/NationalityLinks.astro";
 import { localeList, localePath } from "../../i18n/config";
 import type { Locale } from "../../i18n/config";
 import { getTranslations } from "../../i18n/translations";
@@ -103,4 +104,6 @@ const reviews = reviewsData as GoogleReviewsData;
       </div>
     </div>
   </section>
+
+  <NationalityLinks locale={locale} />
 </I18nLayout>

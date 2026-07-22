@@ -1,0 +1,56 @@
+---
+import type { Locale } from "../i18n/config";
+import { nationalityList, nationalityPath, getNationalityLabel } from "../data/nationalities";
+import { nationalityNavLabel } from "../i18n/nationality-translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<section class="section section-alt nationality-links">
+  <div class="container">
+    <h2>{nationalityNavLabel[locale]}</h2>
+    <ul class="nationality-grid">
+      {nationalityList.map((id) => (
+        <li>
+          <a href={nationalityPath(locale, id)}>
+            {getNationalityLabel(id, locale)}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .nationality-links h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .nationality-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nationality-grid a {
+    display: inline-flex;
+    padding: 0.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .nationality-grid a:hover {
+    border-color: var(--brand);
+    text-decoration: none;
+  }
+</style>

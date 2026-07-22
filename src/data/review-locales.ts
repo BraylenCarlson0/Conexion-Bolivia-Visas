@@ -12,6 +12,7 @@ export const LOCALE_TO_TRANSLATE: Record<Locale, string> = {
   id: "id",
   uk: "uk",
   sr: "sr",
+  hi: "hi",
 };
 
 export function isReviewTranslated(

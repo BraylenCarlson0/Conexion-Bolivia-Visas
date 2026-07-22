@@ -124,6 +124,7 @@ export const discoverNav: Record<Locale, string> = {
   id: "Jelajahi Bolivia",
   uk: "Відкрийте Болівію",
   sr: "Otkrijte Boliviju",
+  hi: "बोलीविया खोजें",
 };
 
 export const discoverMeta: Record<Locale, { title: string; description: string }> = {
@@ -174,6 +175,10 @@ export const discoverMeta: Record<Locale, { title: string; description: string }
     title: "Otkrijte Boliviju: Putovanje u srce Južne Amerike | Conexión Bolivia",
     description: "Bolivija iznenađuje na svakom koraku. Salar de Uyuni, jezero Titicaca, La Paz, Sucre, Potosí i više.",
   },
+  hi: {
+    title: "बोलीविया की खोज: दक्षिण अमेरिका की ओर यात्रा | Conexión Bolivia",
+    description: "बोलीविया हर मोड़ पर आश्चर्यचकित करता है। Salar de Uyuni, Titicaca झील, La Paz, Sucre, Potosí और अधिक।",
+  },
 };
 
 export const discoverContent: Record<Locale, DiscoverContent> = {
@@ -220,5 +225,9 @@ export const discoverContent: Record<Locale, DiscoverContent> = {
   sr: buildContent(
     "🌟 Otkrijte Boliviju: Putovanje u srce Južne Amerike",
     "Bolivija je zemlja koja iznenađuje na svakom koraku. Neverovatni pejzaži, živa kultura i drevne tradicije — idealna destinacija za avanturu.",
+  ),
+  hi: buildContent(
+    "🌟 बोलीविया की खोज: दक्षिण अमेरिका की ओर यात्रा",
+    "बोलीविया एक ऐसा देश है जो हर मोड़ पर आश्चर्यचकित करता है। अद्भुत परिदृश्य, जीवंत संस्कृति और प्राचीन परंपराएं — प्रामाणिकता और रोमांच चाहने वालों के लिए आदर्श।",
   ),
 };

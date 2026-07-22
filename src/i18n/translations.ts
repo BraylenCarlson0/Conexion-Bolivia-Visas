@@ -8,6 +8,7 @@ import type { DiscoverContent } from "./discover-translations";
 import { chinaContactCopy, isChinaLocale } from "./china-translations";
 import type { ChinaContactCopy } from "./china-translations";
 import { heTranslations } from "./he-translations";
+import { hiTranslations } from "./hi-translations";
 import { reviewsCopy } from "./reviews-translations";
 import type { ReviewsCopy } from "./reviews-translations";
 
@@ -1248,6 +1249,8 @@ export const translations: Record<Locale, BaseTranslations> = {
   },
 
   he: heTranslations,
+
+  hi: hiTranslations,
 };
 
 export function getTranslations(locale: Locale): Translations {

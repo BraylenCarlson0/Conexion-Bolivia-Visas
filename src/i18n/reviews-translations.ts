@@ -134,4 +134,15 @@ export const reviewsCopy: Record<Locale, ReviewsCopy> = {
     prev: "Prethodna recenzija",
     next: "Sledeća recenzija",
   },
+  hi: {
+    title: "हमारे ग्राहक क्या कहते हैं",
+    subtitle: "Google पर सत्यापित समीक्षाएं — जिन्होंने हमसे बोलीविया वीज़ा प्राप्त किया",
+    verified: "Google से सत्यापित समीक्षा",
+    translatedNote: "Google मूल से अनुवादित",
+    seeAll: "Google पर सभी समीक्षाएं देखें",
+    onGoogle: "Google पर",
+    reviewsLabel: "समीक्षाएं",
+    prev: "पिछली समीक्षा",
+    next: "अगली समीक्षा",
+  },
 };

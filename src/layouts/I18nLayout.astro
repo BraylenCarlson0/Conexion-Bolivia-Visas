@@ -2,6 +2,11 @@
 import type { Locale, PageKey, TravelStory } from "../i18n/config";
 import { localeList, locales, localePath, travelStoryPath } from "../i18n/config";
 import { getTranslations } from "../i18n/translations";
+import { tipsMeta } from "../i18n/tours-translations";
+import { discoverMeta } from "../i18n/discover-translations";
+import { getNationalityContent } from "../i18n/nationality-translations";
+import { nationalityPath } from "../data/nationalities";
+import type { NationalityId } from "../data/nationalities";
 import { business } from "../data/business";
 import reviewsData from "../data/reviews.json";
 import type { GoogleReviewsData } from "../data/reviews.types";
@@ -10,31 +15,53 @@ import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import HeaderSocialIcons from "../components/HeaderSocialIcons.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
 import WeChatButton from "../components/WeChatButton.astro";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import { isChinaLocale } from "../i18n/china-translations";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
+type LayoutPage = PageKey | "nationality";
+
 interface Props {
   locale: Locale;
-  page: PageKey;
+  page: LayoutPage;
   faqSchema?: { q: string; a: string }[];
   travelStory?: TravelStory;
+  nationalityId?: NationalityId;
 }
 
-const { locale, page, faqSchema, travelStory = "index" } = Astro.props;
+const { locale, page, faqSchema, travelStory = "index", nationalityId } = Astro.props;
 const t = getTranslations(locale);
-const meta = t.meta[page === "home" ? "home" : page];
+
+function resolveMeta(): { title: string; description: string } {
+  if (page === "nationality" && nationalityId) {
+    return getNationalityContent(locale, nationalityId).meta;
+  }
+  if (page === "tours" && travelStory === "tips") return tipsMeta[locale];
+  if (page === "tours" && travelStory === "discover") return discoverMeta[locale];
+  if (page === "home") return t.meta.home;
+  return t.meta[page];
+}
+
+const meta = resolveMeta();
 const reviews = reviewsData as GoogleReviewsData;
 const { dir, hreflang } = locales[locale];
-const pagePath = page === "tours" ? travelStoryPath(locale, travelStory) : localePath(locale, page);
+
+function resolvePagePath(loc: Locale): string {
+  if (page === "nationality" && nationalityId) return nationalityPath(loc, nationalityId);
+  if (page === "tours") return travelStoryPath(loc, travelStory);
+  return localePath(loc, page);
+}
+
+const pagePath = resolvePagePath(locale);
 const canonical = new URL(pagePath, Astro.site);
 
 const alternateLinks = localeList.map((loc) => ({
   hreflang: locales[loc].hreflang,
-  href: new URL(page === "tours" ? travelStoryPath(loc, travelStory) : localePath(loc, page), Astro.site).href,
+  href: new URL(resolvePagePath(loc), Astro.site).href,
 }));
 
-const xDefault = new URL(page === "tours" ? travelStoryPath("es", travelStory) : localePath("es", page), Astro.site).href;
+const xDefault = new URL(resolvePagePath("es"), Astro.site).href;
 const ogImage = new URL(business.ogImage.path, Astro.site).href;
 
 const structuredData = {
@@ -175,7 +202,12 @@ const faqStructuredData = faqSchema
             <HeaderSocialIcons locale={locale} />
           </div>
           <div class="header-actions__lang">
-            <LanguageSwitcher locale={locale} page={page} travelStory={page === "tours" ? travelStory : undefined} />
+            <LanguageSwitcher
+              locale={locale}
+              page={page}
+              travelStory={page === "tours" ? travelStory : undefined}
+              nationalityId={page === "nationality" ? nationalityId : undefined}
+            />
           </div>
         </div>
       </div>
@@ -215,6 +247,7 @@ const faqStructuredData = faqSchema
     )}
     <Analytics />
     <SpeedInsights />
+    <GoogleAnalytics />
   </body>
 </html>
 

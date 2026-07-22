@@ -1,0 +1,142 @@
+---
+import I18nLayout from "../../../layouts/I18nLayout.astro";
+import ContactPrimaryButton from "../../../components/ContactPrimaryButton.astro";
+import { localeList } from "../../../i18n/config";
+import type { Locale } from "../../../i18n/config";
+import type { NationalityId } from "../../../data/nationalities";
+import { getNationalityContent } from "../../../i18n/nationality-translations";
+import { getTranslations } from "../../../i18n/translations";
+import { nationalityPath, nationalityList, getNationalityLabel } from "../../../data/nationalities";
+import { localePath } from "../../../i18n/config";
+
+export function getStaticPaths() {
+  const paths: { params: { lang: string; country: string }; props: { nationalityId: NationalityId } }[] = [];
+
+  for (const lang of localeList) {
+    for (const id of nationalityList) {
+      paths.push({
+        params: { lang, country: nationalityPath(lang as Locale, id).split("/").filter(Boolean).slice(-1)[0]! },
+        props: { nationalityId: id },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const locale = Astro.params.lang as Locale;
+const { nationalityId } = Astro.props;
+const content = getNationalityContent(locale, nationalityId);
+const t = getTranslations(locale);
+---
+
+<I18nLayout locale={locale} page="nationality" nationalityId={nationalityId} faqSchema={content.faqs}>
+  <section class="hero hero--subpage">
+    <div class="container">
+      <p class="eyebrow">{content.eyebrow}</p>
+      <h1>{content.title}</h1>
+      <p class="lead">{content.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="lead">{content.intro}</p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2>{content.requirementsTitle}</h2>
+      <ul class="list-check">
+        {content.requirements.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>{content.processTitle}</h2>
+      <div class="grid-3" style="margin-top: 1.5rem;">
+        {content.processSteps.map((step, i) => (
+          <article class="card">
+            <p class="eyebrow">{i + 1}</p>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2>{content.whyCuscoTitle}</h2>
+      <ul class="list-check">
+        {content.whyCusco.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>{content.faqTitle}</h2>
+      {content.faqs.map((faq) => (
+        <div class="card faq-item">
+          <h3>{faq.q}</h3>
+          <p>{faq.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container whatsapp-banner">
+      <h2>{content.ctaTitle}</h2>
+      <p>{content.ctaText}</p>
+      <div class="button-row">
+        <ContactPrimaryButton
+          locale={locale}
+          whatsappLabel={t.home.ctaWhatsapp}
+          wechatLabel={t.china?.ctaWechat ?? t.home.ctaWhatsapp}
+        />
+        <a class="button button-secondary" href={localePath(locale, "contact")}>{t.home.ctaContact}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>{content.relatedTitle}</h2>
+      <ul class="nationality-related">
+        {nationalityList.filter((id) => id !== nationalityId).map((id) => (
+          <li><a href={nationalityPath(locale, id)}>{getNationalityLabel(id, locale)}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</I18nLayout>
+
+<style>
+  .nationality-related {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+
+  .nationality-related a {
+    display: inline-flex;
+    padding: 0.5rem 1rem;
+    background: var(--brand-pale);
+    border-radius: 999px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+</style>

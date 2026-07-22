@@ -1,0 +1,85 @@
+---
+import type { DiscoverContent } from "../i18n/discover-translations";
+
+interface Props {
+  discover: DiscoverContent;
+  backLabel: string;
+  backPath: string;
+}
+
+const { discover, backLabel, backPath } = Astro.props;
+---
+
+<div class="travel-article-nav">
+  <a class="travel-article-nav__back" href={backPath}>{backLabel}</a>
+</div>
+<article class="blog-post blog-post--embedded">
+  <div class="blog-post__inner">
+    <header class="blog-post__header">
+      <h1>{discover.title}</h1>
+      <p class="blog-post__intro">{discover.intro}</p>
+    </header>
+
+    <figure class="blog-post__figure">
+      <img
+        src={discover.heroImage.src}
+        alt={discover.heroImage.alt}
+        loading="lazy"
+        decoding="async"
+        width="1400"
+        height="605"
+      />
+    </figure>
+
+    {discover.sections.map((section) => (
+      <section class="blog-post__section">
+        <h2>{section.title}</h2>
+        {section.paragraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </section>
+    ))}
+
+    <figure class="blog-post__figure">
+      <img
+        src={discover.landscapeImage.src}
+        alt={discover.landscapeImage.alt}
+        loading="lazy"
+        decoding="async"
+        width="1400"
+        height="788"
+      />
+    </figure>
+
+    <section class="blog-post__section blog-post__closing">
+      <h2>{discover.closingTitle}</h2>
+      {discover.closingParagraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+      <p class="blog-post__question">{discover.closingQuestion}</p>
+    </section>
+  </div>
+</article>
+
+<style>
+  .travel-article-nav {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.25rem 1.25rem 0;
+  }
+
+  .travel-article-nav__back {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--brand);
+    text-decoration: none;
+  }
+
+  .travel-article-nav__back:hover {
+    text-decoration: underline;
+  }
+
+  .blog-post--embedded {
+    padding: 0.5rem 0 3.5rem;
+  }
+</style>
