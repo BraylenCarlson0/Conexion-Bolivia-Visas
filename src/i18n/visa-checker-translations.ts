@@ -1,4 +1,16 @@
 import type { Locale } from "./config";
+import {
+  arVisaChecker,
+  heVisaChecker,
+  hiVisaChecker,
+  idVisaChecker,
+  ptVisaChecker,
+  ruVisaChecker,
+  srVisaChecker,
+  ukVisaChecker,
+  zhTwVisaChecker,
+  zhVisaChecker,
+} from "./visa-checker-extra-locales";
 
 export type VisaCheckerCopy = {
   title: string;
@@ -156,56 +168,16 @@ const en: VisaCheckerCopy = {
 export const visaCheckerCopy: Record<Locale, VisaCheckerCopy> = {
   es,
   en,
-  zh: en,
-  "zh-tw": en,
-  ar: en,
-  he: en,
-  pt: {
-    ...en,
-    title: "Você precisa de visto para a Bolívia?",
-    subtitle:
-      "Selecione o país do seu passaporte. Informamos se você precisa de visto e qual é o próximo passo.",
-    countryLabel: "País do passaporte",
-    countryPlaceholder: "Escolha ou digite seu país…",
-    noResultsLabel: "País não encontrado. Tente outra busca ou fale conosco no WhatsApp.",
-    submitLabel: "Verificar requisito",
-    groupsExplain: [
-      {
-        label: "Grupo I",
-        text: "Não precisa de visto. Entrada com passaporte ou documento válido.",
-      },
-      {
-        label: "Grupo II",
-        text: "Precisa de visto de turismo antes de entrar na Bolívia.",
-      },
-      {
-        label: "Grupo III",
-        text: "Precisa de visto, com verificação prévia da Migração.",
-      },
-    ],
-    group1RedirectBody:
-      "Vamos levá-lo à nossa seção de viagens, com informações turísticas e tours.",
-    group2Title: "Você precisa de visto para a Bolívia",
-    group3Title: "Você precisa de visto para a Bolívia",
-    whatsappLabel: "Fale conosco no WhatsApp",
-    consultPrompt: "Não encontrou seu país na lista?",
-    consultCta: "Consulte-nos no WhatsApp",
-    consultWhatsappPrefill:
-      "Olá, sou de [país] e não encontrei meu país no verificador de visto. Podem confirmar se preciso de visto para a Bolívia?",
-    travelBannerTitle: "Planeje sua viagem à Bolívia",
-    travelWelcomeEyebrow: "Consulta de visto recebida",
-    travelWelcomeTitle: "Você não precisa de visto para a Bolívia",
-    travelWelcomeCountry:
-      "Seu passaporte de {country} está no Grupo I — ou seja, você não precisa de visto.",
-    travelWelcomeBody:
-      "Recebemos sua consulta e trouxemos você aqui automaticamente. Nesta página você encontra informações de viagem e tours para Cusco e a Bolívia.",
-    travelWelcomeNext: "Informações de viagem e tours abaixo",
-  },
-  ru: en,
-  id: en,
-  uk: en,
-  sr: en,
-  hi: en,
+  zh: zhVisaChecker,
+  "zh-tw": zhTwVisaChecker,
+  ar: arVisaChecker,
+  he: heVisaChecker,
+  pt: ptVisaChecker,
+  ru: ruVisaChecker,
+  id: idVisaChecker,
+  uk: ukVisaChecker,
+  sr: srVisaChecker,
+  hi: hiVisaChecker,
 };
 
 export function getVisaCheckerCopy(locale: Locale): VisaCheckerCopy {
