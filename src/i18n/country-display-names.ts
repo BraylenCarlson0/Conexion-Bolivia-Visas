@@ -2,34 +2,56 @@ import type { Locale } from "./config";
 
 type CountryNames = { nameEn: string; nameEs: string };
 
-const displayNames = {
-  zh: new Intl.DisplayNames(["zh-CN"], { type: "region" }),
-  "zh-tw": new Intl.DisplayNames(["zh-TW"], { type: "region" }),
+/** BCP 47 tags for Intl.DisplayNames — es/en use the Google Sheet names instead. */
+const INTL_TAGS: Record<Exclude<Locale, "es" | "en">, string> = {
+  pt: "pt",
+  zh: "zh-CN",
+  "zh-tw": "zh-TW",
+  ar: "ar",
+  he: "he",
+  ru: "ru",
+  id: "id",
+  uk: "uk",
+  sr: "sr",
+  hi: "hi",
 };
 
-/** Prefer sheet Spanish names where Intl differs (e.g. Bolivia branding). */
-const NAME_OVERRIDES: Partial<Record<Locale, Record<string, string>>> = {
-  zh: {
-    BO: "玻利维亚",
-    US: "美国",
-    GB: "英国",
-    KR: "韩国",
-    KP: "朝鲜",
-  },
-  "zh-tw": {
-    BO: "玻利維亞",
-    US: "美國",
-    GB: "英國",
-    KR: "韓國",
-    KP: "北韓",
-  },
+const SORT_LOCALES: Record<Locale, string> = {
+  es: "es",
+  en: "en",
+  pt: "pt",
+  zh: "zh-CN",
+  "zh-tw": "zh-TW",
+  ar: "ar",
+  he: "he",
+  ru: "ru",
+  id: "id",
+  uk: "uk",
+  sr: "sr",
+  hi: "hi",
 };
+
+const intlDisplayNames = new Map<string, Intl.DisplayNames>();
+
+function getIntlDisplayNames(tag: string): Intl.DisplayNames {
+  let displayNames = intlDisplayNames.get(tag);
+  if (!displayNames) {
+    displayNames = new Intl.DisplayNames([tag], { type: "region" });
+    intlDisplayNames.set(tag, displayNames);
+  }
+  return displayNames;
+}
+
+function intlCountryName(tag: string, code: string, fallback: string): string {
+  try {
+    return getIntlDisplayNames(tag).of(code) ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
 
 export function getCountrySortLocale(locale: Locale): string {
-  if (locale === "es" || locale === "pt") return "es";
-  if (locale === "zh") return "zh-CN";
-  if (locale === "zh-tw") return "zh-TW";
-  return "en";
+  return SORT_LOCALES[locale];
 }
 
 export function getCountryDisplayName(
@@ -37,20 +59,11 @@ export function getCountryDisplayName(
   code: string,
   names: CountryNames,
 ): string {
-  if (locale === "es" || locale === "pt") return names.nameEs;
+  if (locale === "es") return names.nameEs;
+  if (locale === "en") return names.nameEn;
 
-  const override = NAME_OVERRIDES[locale]?.[code];
-  if (override) return override;
-
-  if (locale === "zh" || locale === "zh-tw") {
-    try {
-      return displayNames[locale].of(code) ?? names.nameEn;
-    } catch {
-      return names.nameEn;
-    }
-  }
-
-  return names.nameEn;
+  const tag = INTL_TAGS[locale];
+  return intlCountryName(tag, code, names.nameEn);
 }
 
 export function sortCountriesByDisplayName<
